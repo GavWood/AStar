@@ -63,16 +63,16 @@ public class BWRiver : MonoBehaviour
 
         UnityEngine.Debug.Log("Create River was pressed");
 
-        BWTerrainToAStar aStarFromTerrain = new BWTerrainToAStar(_terrain);
+        BWTerrainToAStar terrainToAStar = new BWTerrainToAStar(_terrain);
 
-        Vector2Int riverStartPoint = aStarFromTerrain.ConvertFromWorldToLocalGridPoint(_riverStart.transform.position);
-        Vector2Int riverEndPoint = aStarFromTerrain.ConvertFromWorldToLocalGridPoint(_riverEnd.transform.position);
+        Vector2Int riverStartPoint = terrainToAStar.ConvertFromWorldToLocalGridPoint(_riverStart.transform.position);
+        Vector2Int riverEndPoint = terrainToAStar.ConvertFromWorldToLocalGridPoint(_riverEnd.transform.position);
 
-        BWAStarNode start = aStarFromTerrain._nodes.Find(node => node.Position == riverStartPoint);
-        BWAStarNode end   = aStarFromTerrain._nodes.Find(node => node.Position == riverEndPoint);
+        BWAStarNode start = terrainToAStar._nodes.Find(node => node.Position == riverStartPoint);
+        BWAStarNode end   = terrainToAStar._nodes.Find(node => node.Position == riverEndPoint);
 
         // Do the A Star calculation
-        _aStar = new AStar(aStarFromTerrain._nodes, start, end, CalcHeightDifference);
+        _aStar = new AStar(terrainToAStar._nodes, start, end, CalcHeightDifference);
 
         _path = _aStar.CalculateAStar();
 
@@ -90,7 +90,7 @@ public class BWRiver : MonoBehaviour
         _lineRenderer.positionCount = _path.Count;
         for (int i = 0; i < _path.Count; i++)
         {
-            Vector3 worldPos = aStarFromTerrain.ConvertFromLocalGridPointToWorld(_path[i]);
+            Vector3 worldPos = terrainToAStar.ConvertFromLocalGridPointToWorld(_path[i]);
             worldPos.y += 0.1f;
             _lineRenderer.SetPosition(i, worldPos);
         }

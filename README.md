@@ -1,4 +1,4 @@
-# AStar
+# An A* Pathfinding Project
 Completely original code for implementing A* on terrains
 
 ![image](https://github.com/GavWood/AStar/assets/17795588/e92f2499-568f-49aa-97e9-d4ad54289a2a)
